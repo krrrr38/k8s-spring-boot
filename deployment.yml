@@ -1,0 +1,25 @@
+# deployment includes replica set which includes pods
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-spring-boot-deployment
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        name: k8s-spring-boot
+    spec:
+      containers:
+        - name: k8s-spring-boot
+          image: asia.gcr.io/k8s-trial/k8s-spring-boot:0.2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

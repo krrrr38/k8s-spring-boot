@@ -1,0 +1,10 @@
+# build docker image: ref https://github.com/GoogleCloudPlatform/cloud-builders/blob/27ebde4228b4b758d02596bad03d38590c066690/java/gradle/examples/spring_boot/cloudbuild.yaml
+# when you use build triger, you can set tag=$REVISION_ID.
+steps:
+- name: 'gcr.io/cloud-builders/java/gradle'
+  args: ['assemble']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=asia.gcr.io/$PROJECT_ID/k8s-spring-boot:0.2', '.']
+  # args: ['build', '--tag=asia.gcr.io/$PROJECT_ID/k8s-spring-boot:$REVISION_ID', '.']
+images: ['asia.gcr.io/$PROJECT_ID/k8s-spring-boot:0.2']
+# images: ['asia.gcr.io/$PROJECT_ID/k8s-spring-boot:$REVISION_ID']

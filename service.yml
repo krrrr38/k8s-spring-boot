@@ -1,0 +1,14 @@
+# service aggregate pods and expose them (because of LoadBalancer)
+# if you want to balance http=L7, please use Ingress
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-spring-boot-service
+spec:
+  type: LoadBalancer
+  selector:
+    name: k8s-spring-boot
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
