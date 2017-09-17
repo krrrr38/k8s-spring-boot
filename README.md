@@ -67,3 +67,37 @@ kubectl scale deployment k8s-spring-boot-deployment --replicas 4
 kubectl delete service k8s-spring-boot-service
 kubectl delete service k8s-spring-boot-service
 ```
+
+# Google Cloud SQL
+
+container <-> Cloud SQL Proxy <-> Cloud SQL
+
+- [enable apis](https://console.cloud.google.com/apis/library)
+  - Cloud SQL Administration API
+- [create service account](https://console.cloud.google.com/iam-admin/serviceaccounts/)
+  - and download cf as `cloudsql_serviceaccount.json`
+- create cloudsql instance & user
+```sh
+gcloud sql instances create gke-cloudsql --tier db-f1-micro --region=asia-east1
+gcloud sql users create proxyuser cloudsqlproxy~% --instance=gke-cloudsql
+```
+
+- create cloudsql instance access secret
+```
+kubectl create secret generic cloudsql-instance-credentials --from-file=credentials.json=cloudsql_serviceaccount.json
+```
+
+- create cloudsql database access secret
+```
+kubectl create secret generic cloudsql-db-credentials --from-literal=username=cloudsqlproxy
+```
+
+then deploy, and get `curl localhost:8080/jdbc`
+
+## Logging
+
+- https://github.com/wercker/stern
+
+```sh
+stern k8s-spring-boot
+```

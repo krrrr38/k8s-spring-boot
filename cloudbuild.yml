@@ -4,7 +4,7 @@ steps:
 - name: 'gcr.io/cloud-builders/java/gradle'
   args: ['assemble']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=asia.gcr.io/$PROJECT_ID/k8s-spring-boot:0.2', '.']
+  args: ['build', '--tag=asia.gcr.io/$PROJECT_ID/k8s-spring-boot:0.5', '.']
   # args: ['build', '--tag=asia.gcr.io/$PROJECT_ID/k8s-spring-boot:$REVISION_ID', '.']
-images: ['asia.gcr.io/$PROJECT_ID/k8s-spring-boot:0.2']
+images: ['asia.gcr.io/$PROJECT_ID/k8s-spring-boot:0.5']
 # images: ['asia.gcr.io/$PROJECT_ID/k8s-spring-boot:$REVISION_ID']

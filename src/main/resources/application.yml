@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/information_schema
+    username: root
+    password:
+
+---
+
+spring.profiles: default
+spring.profiles.active: default
+
+---
+
+spring:
+  profiles: cloudsql
+  datasource:
+    url: jdbc:mysql://${CLOUDSQL_DB_HOST}/information_schema
+    username: ${CLOUDSQL_DB_USERNAME}
+    password: ${CLOUDSQL_DB_PASSWORD}
